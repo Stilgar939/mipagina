@@ -1,0 +1,485 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Carlos Villar Melero</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: iOS "inset grouped" app shell — collapsing large title, widget row, segmented control, grouped lists. Single dark look. */
+:root {
+  color-scheme: dark;
+  --bg: #000000;
+  --grouped: #0d0d10;
+  --card: #1c1c1e;
+  --card-2: #2c2c2e;
+  --fill: rgba(118,118,128,.24);
+  --sep: rgba(84,84,88,.55);
+  --label: #f5f5f7;
+  --label-2: rgba(235,235,245,.62);
+  --label-3: rgba(235,235,245,.34);
+  --blue: #0a84ff;
+  --green: #30d158;
+  --orange: #ff9f0a;
+  --indigo: #5e5ce6;
+  --teal: #64d2ff;
+  --pink: #ff375f;
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Figtree", "Helvetica Neue", Arial, sans-serif;
+  --display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Figtree", "Helvetica Neue", Arial, sans-serif;
+  --mono: "SF Mono", "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  --r-lg: 22px; --r-md: 14px;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg); color: var(--label);
+  font: 15px/1.45 var(--font); letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: rgba(0,0,0,.72); }
+.glow { position: fixed; inset: -20vh -20vw auto; height: 70vh; pointer-events: none; z-index: 0;
+  background: radial-gradient(40% 50% at 30% 30%, rgba(10,132,255,.22), transparent 70%),
+              radial-gradient(35% 45% at 75% 20%, rgba(94,92,230,.18), transparent 70%); filter: blur(10px); }
+.wrap { position: relative; z-index: 1; max-width: 720px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 48px; }
+
+/* nav bar */
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; margin: 0 calc(-1 * max(16px, env(safe-area-inset-left, 0px)));
+  padding: 12px max(16px, env(safe-area-inset-left, 0px)); display: flex; align-items: center; justify-content: space-between;
+  background: rgba(0,0,0,0); border-bottom: .5px solid transparent;
+  transition: background .25s, border-color .25s, backdrop-filter .25s; }
+.nav.solid { background: rgba(22,22,24,.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom-color: var(--sep); }
+.nav-title { font-weight: 600; font-size: 17px; opacity: 0; transform: translateY(6px); transition: .25s; }
+.nav.solid .nav-title { opacity: 1; transform: none; }
+.nav-time { font: 500 13px var(--mono); color: var(--label-2); font-variant-numeric: tabular-nums; }
+.nav-btn { color: var(--blue); font-size: 17px; background: none; border: 0; padding: 0; cursor: pointer; font-family: inherit; }
+
+.large-title { font: 800 clamp(32px, 7vw, 40px)/1.08 var(--display); letter-spacing: -0.035em; margin: 6px 0 2px; text-wrap: balance; }
+.subtitle { color: var(--label-2); font-size: 17px; margin: 0 0 22px; }
+
+/* profile card */
+.profile { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; background: var(--card); border-radius: var(--r-lg); padding: 18px; }
+.avatar { width: 68px; height: 68px; border-radius: 50%; display: grid; place-items: center;
+  font: 700 25px var(--display); letter-spacing: -0.02em; color: #fff;
+  background: linear-gradient(145deg, #3a8dff, #5e5ce6 60%, #8a4dff); box-shadow: 0 0 0 3px var(--card), 0 0 0 4.5px rgba(10,132,255,.5); }
+.profile h2 { margin: 0; font: 700 20px var(--display); letter-spacing: -0.02em; }
+.profile p { margin: 2px 0 8px; color: var(--label-2); font-size: 14px; }
+.pill { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--green); background: rgba(48,209,88,.14); padding: 4px 10px; border-radius: 99px; }
+.pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 0 rgba(48,209,88,.6); animation: ping 2.2s infinite; }
+@keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(48,209,88,.55);} 70%,100% { box-shadow: 0 0 0 8px rgba(48,209,88,0);} }
+
+.actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; }
+.action { background: var(--card); border: 0; border-radius: var(--r-md); padding: 12px 6px 10px; color: var(--blue); cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 5px; font: 500 12.5px var(--font); text-decoration: none; transition: transform .15s, background .15s; }
+.action:hover { background: var(--card-2); }
+.action:active { transform: scale(.96); }
+.action svg { width: 22px; height: 22px; }
+.contact-line { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 4px 14px; justify-content: center; color: var(--label-2); font: 13px var(--mono); user-select: all; }
+.contact-line span { user-select: text; }
+
+/* widgets */
+.section-h { display: flex; align-items: baseline; justify-content: space-between; margin: 30px 4px 10px; }
+.section-h h3 { margin: 0; font: 700 22px var(--display); letter-spacing: -0.025em; }
+.section-h small { color: var(--label-3); font-size: 13px; }
+.widgets { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+.widget { background: var(--card); border-radius: var(--r-lg); padding: 14px 14px 16px; min-width: 0; display: flex; flex-direction: column; gap: 6px; position: relative; overflow: hidden; }
+.widget .k { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+.widget .v { font: 700 34px/1 var(--display); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.widget .v small { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; color: var(--label-2); margin-left: 2px; }
+.widget .d { font-size: 12.5px; color: var(--label-2); line-height: 1.3; }
+.w-blue .k { color: var(--blue); } .w-green .k { color: var(--green); } .w-orange .k { color: var(--orange); }
+.bars { display: grid; gap: 5px; margin-top: 2px; }
+.bar { height: 6px; border-radius: 3px; background: var(--fill); overflow: hidden; }
+.bar b { display: block; height: 100%; border-radius: 3px; transition: width 1.4s cubic-bezier(.2,.8,.2,1); }
+.dots { display: grid; grid-template-columns: repeat(5, 16px); gap: 5px; margin-top: 4px; }
+.dots i { aspect-ratio: 1; border-radius: 4px; background: var(--green); opacity: .9; max-width: 100%; transform: scale(1); transition: transform .3s, opacity .3s; }
+
+/* about */
+.card { background: var(--card); border-radius: var(--r-lg); overflow: hidden; }
+.about { padding: 16px 18px; color: var(--label); font-size: 15.5px; line-height: 1.55; }
+.about b { font-weight: 600; }
+.list-row { display: flex; align-items: center; gap: 12px; padding: 11px 16px; position: relative; min-height: 46px; }
+.list-row + .list-row::before { content: ""; position: absolute; top: 0; left: 56px; right: 0; height: .5px; background: var(--sep); }
+.ico { width: 29px; height: 29px; border-radius: 8px; display: grid; place-items: center; flex: none; color: #fff; }
+.ico svg { width: 17px; height: 17px; }
+.list-row .tx { flex: 1; min-width: 0; }
+.list-row .tx small { display: block; color: var(--label-2); font-size: 13px; }
+
+/* segmented */
+.seg { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 50px); z-index: 4; margin-top: 30px; padding: 6px 0; }
+.seg-inner { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); background: rgba(44,44,46,.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 10px; padding: 2px; }
+.seg-thumb { position: absolute; top: 2px; bottom: 2px; left: 2px; width: calc((100% - 4px) / 4); background: #636366; border-radius: 8px; box-shadow: 0 3px 8px rgba(0,0,0,.25); transition: transform .32s cubic-bezier(.3,.9,.3,1); }
+.seg button { position: relative; z-index: 1; border: 0; background: none; color: var(--label); font: 600 13.5px var(--font); padding: 7px 4px; cursor: pointer; border-radius: 8px; }
+.seg button[aria-selected="false"] { color: var(--label-2); font-weight: 500; }
+.seg button:focus-visible, .action:focus-visible, .nav-btn:focus-visible, .exp-head:focus-visible, .chip:focus-visible, .ep:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.panel { margin-top: 14px; animation: rise .35s ease both; }
+@keyframes rise { from { opacity: .4; transform: translateY(6px);} to { opacity: 1; transform: none; } }
+
+/* experience */
+.exp { background: var(--card); border-radius: var(--r-lg); margin-bottom: 12px; overflow: hidden; }
+.exp-head { width: 100%; display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; padding: 14px 16px; background: none; border: 0; color: inherit; text-align: left; cursor: pointer; font: inherit; }
+.logo { width: 42px; height: 42px; border-radius: 11px; display: grid; place-items: center; font: 700 15px var(--display); color: #fff; letter-spacing: -0.02em; }
+.exp-head h4 { margin: 0; font: 600 16px var(--font); letter-spacing: -0.015em; }
+.exp-head p { margin: 1px 0 0; color: var(--label-2); font-size: 13.5px; }
+.exp-meta { display: flex; align-items: center; gap: 8px; color: var(--label-3); font-size: 13px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.chev { width: 9px; height: 14px; transition: transform .3s; color: var(--label-3); }
+.exp.open .chev { transform: rotate(90deg); }
+.exp-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s cubic-bezier(.3,.9,.3,1); }
+.exp.open .exp-body { grid-template-rows: 1fr; }
+.exp-body > div { overflow: hidden; }
+.exp-body ul { list-style: none; margin: 0; padding: 0 16px 6px 70px; }
+.exp-body li { position: relative; padding: 0 0 9px; color: var(--label); font-size: 14.5px; line-height: 1.45; }
+.exp-body li::before { content: ""; position: absolute; left: -14px; top: .62em; width: 5px; height: 5px; border-radius: 50%; background: var(--blue); }
+.exp-body li b { color: var(--orange); font-weight: 600; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 16px 70px; }
+.tag { font: 500 12px var(--mono); color: var(--teal); background: rgba(100,210,255,.1); border-radius: 6px; padding: 3px 7px; }
+.now { font-size: 11px; font-weight: 700; color: var(--green); background: rgba(48,209,88,.14); padding: 2px 7px; border-radius: 99px; text-transform: uppercase; letter-spacing: .04em; }
+
+/* stack */
+.search { display: flex; align-items: center; gap: 8px; background: var(--fill); border-radius: 11px; padding: 8px 10px; margin-bottom: 14px; }
+.search svg { width: 16px; height: 16px; color: var(--label-2); flex: none; }
+.search input { flex: 1; min-width: 0; background: none; border: 0; outline: 0; color: var(--label); font: 16px var(--font); }
+.search input::placeholder { color: var(--label-2); }
+.group-label { margin: 18px 16px 7px; color: var(--label-2); font-size: 13px; text-transform: uppercase; letter-spacing: .04em; }
+.group-label:first-child { margin-top: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; background: var(--card); border-radius: var(--r-lg); padding: 14px; }
+.chip { border: 0; font: 500 14px var(--font); color: var(--label); background: var(--card-2); padding: 7px 12px; border-radius: 99px; cursor: default; display: inline-flex; align-items: center; gap: 6px; }
+.chip.lvl::after { content: "avanzado"; font-size: 10.5px; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: .04em; }
+.chip mark { background: rgba(10,132,255,.35); color: inherit; border-radius: 3px; }
+.empty { text-align: center; color: var(--label-2); padding: 30px 10px; }
+
+/* education */
+.edu .list-row { align-items: flex-start; }
+.edu .ico { margin-top: 2px; }
+.yr { color: var(--label-3); font-size: 13px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* api console */
+.console { background: #0b0b0d; border: .5px solid var(--sep); border-radius: var(--r-lg); overflow: hidden; font: 13px/1.6 var(--mono); }
+.console-top { display: flex; align-items: center; gap: 7px; padding: 10px 14px; background: #161618; border-bottom: .5px solid var(--sep); }
+.console-top i { width: 11px; height: 11px; border-radius: 50%; }
+.console-top span { margin-left: 8px; color: var(--label-3); font-size: 12px; }
+.eps { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 14px 4px; }
+.ep { border: .5px solid var(--sep); background: #161618; color: var(--label-2); font: 500 12.5px var(--mono); padding: 5px 9px; border-radius: 8px; cursor: pointer; }
+.ep b { color: var(--green); font-weight: 600; margin-right: 6px; }
+.ep[aria-pressed="true"] { color: var(--label); border-color: var(--blue); background: rgba(10,132,255,.14); }
+.req { padding: 8px 14px 0; color: var(--label-2); overflow-x: auto; white-space: nowrap; }
+.req .st { color: var(--green); }
+pre.out { margin: 0; padding: 8px 14px 16px; min-height: 260px; max-height: 420px; overflow: auto; color: #d8dee9; white-space: pre; }
+.j-k { color: #9cdcfe; } .j-s { color: #ce9178; } .j-n { color: #b5cea8; } .j-p { color: #808694; }
+.caret { display: inline-block; width: 7px; height: 1.1em; background: var(--blue); vertical-align: -2px; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.console-note { color: var(--label-3); font: 12.5px var(--font); text-align: center; margin: 10px 0 0; }
+
+footer { margin-top: 36px; text-align: center; color: var(--label-3); font-size: 12.5px; }
+footer code { font-family: var(--mono); color: var(--label-2); }
+
+.toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); opacity: 0; z-index: 20;
+  background: rgba(44,44,46,.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); color: var(--label);
+  padding: 10px 16px; border-radius: 99px; font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 8px; transition: .3s; pointer-events: none; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+.toast svg { width: 16px; height: 16px; color: var(--green); }
+
+@media (max-width: 520px) {
+  .widgets { grid-template-columns: 1fr 1fr; }
+  .widgets .widget:first-child { grid-column: 1 / -1; }
+  .exp-meta .yrs { display: none; }
+  .exp-body ul, .tags { padding-left: 30px; }
+  .seg button { font-size: 12.5px; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+
+<div class="glow" aria-hidden="true"></div>
+<div class="wrap">
+  <nav class="nav" id="nav">
+    <span class="nav-time" id="clock">09:41</span>
+    <span class="nav-title">Carlos Villar</span>
+    <button class="nav-btn" id="navCopy" type="button">Contactar</button>
+  </nav>
+
+  <h1 class="large-title">Carlos Villar Melero</h1>
+  <p class="subtitle">Desarrollador Backend Java · Barcelona</p>
+
+  <section class="profile" aria-label="Resumen">
+    <div class="avatar" aria-hidden="true">CV</div>
+    <div>
+      <h2>Java · Spring · Oracle</h2>
+      <p>5+ años construyendo y manteniendo backend empresarial</p>
+      <span class="pill"><i></i>Abierto a nuevas oportunidades</span>
+    </div>
+  </section>
+
+  <div class="actions">
+    <button class="action" type="button" data-copy="cvillarmel@gmail.com" data-msg="Email copiado">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg>Email
+    </button>
+    <button class="action" type="button" data-copy="+34 634 86 10 92" data-msg="Teléfono copiado">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Teléfono
+    </button>
+    <a class="action" href="https://www.linkedin.com/" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg>LinkedIn
+    </a>
+  </div>
+  <div class="contact-line"><span>cvillarmel@gmail.com</span><span>+34 634 86 10 92</span></div>
+
+  <div class="section-h"><h3>En cifras</h3><small>datos reales de proyecto</small></div>
+  <div class="widgets">
+    <div class="widget w-orange">
+      <span class="k">Rendimiento</span>
+      <span class="v"><span data-count="5" data-from="30">5</span><small>s</small></span>
+      <div class="bars" aria-hidden="true">
+        <div class="bar"><b id="barBefore" style="width:100%;background:var(--label-3)"></b></div>
+        <div class="bar"><b id="barAfter" style="width:16.7%;background:var(--orange)"></b></div>
+      </div>
+      <span class="d">Procesos críticos en Oracle: de 30 s a 5 s</span>
+    </div>
+    <div class="widget w-green">
+      <span class="k">Servicios</span>
+      <span class="v"><span data-count="15">15</span></span>
+      <div class="dots" id="dots" aria-hidden="true"></div>
+      <span class="d">Microservicios REST en producción</span>
+    </div>
+    <div class="widget w-blue">
+      <span class="k">Experiencia</span>
+      <span class="v"><span data-count="5">5</span><small>+ años</small></span>
+      <div class="bars" aria-hidden="true"><div class="bar"><b style="width:100%;background:linear-gradient(90deg,var(--indigo),var(--blue))"></b></div></div>
+      <span class="d">Desde 2020, de full stack a backend</span>
+    </div>
+  </div>
+
+  <div class="section-h"><h3>Perfil</h3></div>
+  <div class="card">
+    <p class="about">Desarrollador backend especializado en <b>APIs REST</b>, modernización de sistemas legacy y optimización de rendimiento sobre <b>Oracle (SQL y PL/SQL)</b>. Rindo especialmente en proyectos de largo recorrido: mantengo servicios estables en el tiempo, cuido la calidad del código y llevo cada problema de rendimiento hasta medir el resultado.</p>
+  </div>
+  <div class="card" style="margin-top:12px">
+    <div class="list-row"><span class="ico" style="background:var(--green)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6z"/></svg></span><div class="tx">Fiabilidad y constancia<small>Servicios estables y mantenidos en el tiempo</small></div></div>
+    <div class="list-row"><span class="ico" style="background:var(--blue)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.5-4.5"/></svg></span><div class="tx">Rigor y atención al detalle<small>Code review, planes de ejecución, calidad medible</small></div></div>
+    <div class="list-row"><span class="ico" style="background:var(--orange)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3 5 14h6l-1 7 8-11h-6z"/></svg></span><div class="tx">Orientación a resultados<small>Cada mejora termina en una métrica</small></div></div>
+    <div class="list-row"><span class="ico" style="background:var(--indigo)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 14.5c3 0 6 1.8 6 5"/></svg></span><div class="tx">Trabajo en equipo<small>Scrum, trato directo con cliente</small></div></div>
+  </div>
+
+  <div class="seg" id="seg">
+    <div class="seg-inner" role="tablist" aria-label="Secciones">
+      <span class="seg-thumb" id="thumb"></span>
+      <button role="tab" aria-selected="true" data-tab="exp" type="button">Experiencia</button>
+      <button role="tab" aria-selected="false" data-tab="stack" type="button">Stack</button>
+      <button role="tab" aria-selected="false" data-tab="edu" type="button">Formación</button>
+      <button role="tab" aria-selected="false" data-tab="api" type="button">API</button>
+    </div>
+  </div>
+
+  <section id="panel" class="panel" aria-live="polite"></section>
+
+  <footer>Hecho a mano con <code>HTML</code>, <code>CSS</code> y <code>JavaScript</code> sin frameworks · 2026</footer>
+</div>
+
+<div class="toast" id="toast" role="status"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg><span id="toastMsg">Copiado</span></div>
+
+<script>
+const DATA = {
+  nombre: "Carlos Villar Melero",
+  rol: "Desarrollador Backend Java",
+  ubicacion: "Barcelona",
+  experiencia: [
+    { empresa: "Minsait (Indra)", ini: "M", color: "linear-gradient(145deg,#0a84ff,#5e5ce6)", puesto: "Desarrollador Backend Java", periodo: "2024 – actualidad", actual: true,
+      logros: ["Optimización de consultas y procedimientos complejos en Oracle: procesos críticos de <b>30 s a 5 s</b>.",
+               "Desarrollo y mantenimiento continuado de <b>15 microservicios REST</b> con Java 11 y Spring Boot para el sector público.",
+               "Modernización de aplicaciones legacy extrayendo su funcionalidad a APIs REST.",
+               "Interfaces en Angular para evolutivos y resolución de incidencias en producción.",
+               "Interlocución directa con cliente; equipo Scrum con sprints quincenales, code review y Jira."],
+      tags: ["Java 11", "Spring Boot", "Oracle", "PL/SQL", "Angular", "Jira"] },
+    { empresa: "Webhelp (proyecto Google)", ini: "W", color: "linear-gradient(145deg,#30d158,#0a9f6e)", puesto: "Soporte Técnico Cloud", periodo: "2023",
+      logros: ["Diagnóstico y resolución de incidencias en <b>Google Cloud Platform</b> (Compute Engine, IAM, Cloud Storage, Networking).",
+               "Incidencias críticas P1/P2 bajo SLA, con escalado a ingeniería y documentación de causa raíz."],
+      tags: ["GCP", "IAM", "Networking", "SLA"] },
+    { empresa: "NTT Data (Everis)", ini: "N", color: "linear-gradient(145deg,#64d2ff,#0a84ff)", puesto: "Desarrollador Backend", periodo: "2022 – 2023",
+      logros: ["Backend con Java y Spring y programación en PL/SQL para el sector salud.",
+               "Tuning de procedimientos almacenados y consultas (planes de ejecución e índices), reduciendo la duración de los procesos batch.",
+               "Ciclo Agile completo: refinamiento, dailies, sprint review y retrospectivas."],
+      tags: ["Java", "Spring", "PL/SQL", "Tuning"] },
+    { empresa: "NFCode", ini: "NF", color: "linear-gradient(145deg,#ff9f0a,#ff375f)", puesto: "Desarrollador Full Stack", periodo: "2020 – 2022",
+      logros: ["Servicios backend con Java, Node.js (Express) y PHP para aseguradoras.",
+               "Interfaces en Vue.js integradas con APIs propias; todo el ciclo, del análisis al despliegue."],
+      tags: ["Java", "Node.js", "PHP", "Vue.js"] }
+  ],
+  stack: {
+    "Lenguajes": [["Java", 1], ["SQL / PL-SQL", 1], ["JavaScript", 0], ["TypeScript", 0], ["Python", 0], ["PHP", 0]],
+    "Backend": [["Spring Boot", 0], ["Spring MVC", 0], ["Spring Data", 0], ["Spring Security", 0], ["JPA / Hibernate", 0], ["APIs REST", 0], ["Microservicios", 0], ["Maven", 0]],
+    "Bases de datos": [["Oracle Database", 0], ["MySQL", 0], ["Modelado relacional", 0], ["Planes de ejecución", 0]],
+    "Testing y calidad": [["JUnit", 0], ["Mockito", 0], ["SonarQube", 0], ["Code review", 0]],
+    "DevOps y cloud": [["Git (Gitflow)", 0], ["Docker", 0], ["GNU/Linux", 0], ["Jenkins", 0], ["Postman / Swagger", 0], ["Google Cloud Platform", 0]],
+    "Frontend": [["Angular", 0], ["Vue.js", 0], ["React", 0], ["HTML5", 0], ["CSS3", 0], ["Tailwind", 0]],
+    "Seguridad": [["OWASP Top 10", 0]]
+  },
+  formacion: [
+    { t: "Curso de especialización FP en Ciberseguridad en entornos de las TI", c: "Jesuïtes El Clot", y: "2025 – hoy", col: "var(--pink)" },
+    { t: "CFGS Desarrollo de Aplicaciones Web (DAW)", c: "Jesuïtes El Clot", y: "2020 – 2021", col: "var(--blue)" },
+    { t: "CFGS Desarrollo de Aplicaciones Multiplataforma (DAM)", c: "Jesuïtes El Clot", y: "2018 – 2020", col: "var(--indigo)" },
+    { t: "Bachillerato Tecnológico", c: "Santa Maria dels Apòstols", y: "2015 – 2018", col: "#8e8e93" }
+  ],
+  certificaciones: ["Oracle Certified – Java Programming", "Oracle Certified – Database Programming with SQL", "Python Institute PCEP", "Cloudera Certification"],
+  idiomas: { castellano: "nativo", catalan: "nativo", ingles: "B2" }
+};
+
+const $ = (s, el = document) => el.querySelector(s);
+const panel = $("#panel");
+const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const chev = '<svg class="chev" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m1.5 1.5 5.5 5.5-5.5 5.5"/></svg>';
+
+/* ---------- tabs ---------- */
+const renderers = {
+  exp() {
+    panel.innerHTML = DATA.experiencia.map((e, i) => `
+      <article class="exp${i === 0 ? " open" : ""}">
+        <button class="exp-head" type="button" aria-expanded="${i === 0}">
+          <span class="logo" style="background:${e.color}">${e.ini}</span>
+          <span><h4>${e.puesto}</h4><p>${e.empresa}</p></span>
+          <span class="exp-meta">${e.actual ? '<span class="now">Actual</span>' : ""}<span class="yrs">${e.periodo}</span>${chev}</span>
+        </button>
+        <div class="exp-body"><div>
+          <ul>${e.logros.map(l => `<li>${l}</li>`).join("")}</ul>
+          <div class="tags">${e.tags.map(t => `<span class="tag">${t}</span>`).join("")}</div>
+        </div></div>
+      </article>`).join("");
+    panel.querySelectorAll(".exp-head").forEach(h => h.addEventListener("click", () => {
+      const art = h.parentElement, open = art.classList.toggle("open");
+      h.setAttribute("aria-expanded", open);
+    }));
+  },
+  stack() {
+    panel.innerHTML = `
+      <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4-4"/></svg>
+        <input id="q" type="search" placeholder="Buscar tecnología (p. ej. spring, oracle)" autocomplete="off"></label>
+      <div id="stackOut"></div>`;
+    const out = $("#stackOut"), q = $("#q");
+    const draw = () => {
+      const term = q.value.trim().toLowerCase();
+      let html = "", hits = 0;
+      for (const [grp, items] of Object.entries(DATA.stack)) {
+        const f = items.filter(([n]) => !term || n.toLowerCase().includes(term) || grp.toLowerCase().includes(term));
+        if (!f.length) continue;
+        hits += f.length;
+        html += `<div class="group-label">${grp}</div><div class="chips">${f.map(([n, adv]) => {
+          let label = esc(n);
+          if (term) { const i = n.toLowerCase().indexOf(term); if (i > -1) label = esc(n.slice(0, i)) + "<mark>" + esc(n.slice(i, i + term.length)) + "</mark>" + esc(n.slice(i + term.length)); }
+          return `<span class="chip${adv ? " lvl" : ""}">${label}</span>`;
+        }).join("")}</div>`;
+      }
+      out.innerHTML = hits ? html : `<p class="empty">Nada con «${esc(term)}». Prueba con «java», «sql» o «cloud».</p>`;
+    };
+    q.addEventListener("input", draw);
+    draw();
+  },
+  edu() {
+    const cap = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/></svg>';
+    const seal = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="m9 13-2 8 5-3 5 3-2-8"/></svg>';
+    const globe = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>';
+    panel.innerHTML = `
+      <div class="group-label">Formación</div>
+      <div class="card edu">${DATA.formacion.map(f => `<div class="list-row"><span class="ico" style="background:${f.col}">${cap}</span><div class="tx">${f.t}<small>${f.c}</small></div><span class="yr">${f.y}</span></div>`).join("")}</div>
+      <div class="group-label">Certificaciones</div>
+      <div class="card">${DATA.certificaciones.map(c => `<div class="list-row"><span class="ico" style="background:var(--orange)">${seal}</span><div class="tx">${c}</div></div>`).join("")}</div>
+      <div class="group-label">Idiomas</div>
+      <div class="card">
+        <div class="list-row"><span class="ico" style="background:var(--teal)">${globe}</span><div class="tx">Castellano y catalán</div><span class="yr">Nativo</span></div>
+        <div class="list-row"><span class="ico" style="background:var(--teal)">${globe}</span><div class="tx">Inglés</div><span class="yr">B2</span></div>
+      </div>`;
+  },
+  api() {
+    const eps = [
+      ["/api/v1/carlos", () => ({ nombre: DATA.nombre, rol: DATA.rol, ubicacion: DATA.ubicacion, anios_experiencia: 5, disponible: true })],
+      ["/api/v1/carlos/experiencia", () => DATA.experiencia.map(e => ({ empresa: e.empresa, puesto: e.puesto, periodo: e.periodo }))],
+      ["/api/v1/carlos/stack?nivel=avanzado", () => Object.values(DATA.stack).flat().filter(s => s[1]).map(s => s[0])],
+      ["/api/v1/carlos/metricas", () => ({ latencia_procesos_criticos: { antes_s: 30, despues_s: 5, mejora: "6x" }, microservicios_rest: 15 })]
+    ];
+    panel.innerHTML = `
+      <div class="console">
+        <div class="console-top"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i><span>carlos-api · Spring Boot 3</span></div>
+        <div class="eps">${eps.map(([p], i) => `<button class="ep" type="button" data-i="${i}" aria-pressed="false"><b>GET</b>${p.replace("/api/v1", "")}</button>`).join("")}</div>
+        <div class="req" id="req"></div>
+        <pre class="out" id="out"></pre>
+      </div>
+      <p class="console-note">El CV, servido como si fuera una API REST. Pulsa un endpoint.</p>`;
+    const out = $("#out"), req = $("#req");
+    let timer;
+    const hl = json => json.replace(/("(?:\\.|[^"\\])*")(\s*:)?|\b(true|false|null)\b|(-?\d+(?:\.\d+)?)|([^"\w-]+)|([\s\S])/g,
+      (m, str, colon, bool, num, punct, other) => {
+        if (str) return colon ? `<span class="j-k">${esc(str)}</span><span class="j-p">:</span>` : `<span class="j-s">${esc(str)}</span>`;
+        if (bool) return `<span class="j-n">${bool}</span>`;
+        if (num) return `<span class="j-n">${num}</span>`;
+        return esc(m);
+      });
+    const run = i => {
+      clearTimeout(timer);
+      panel.querySelectorAll(".ep").forEach(b => b.setAttribute("aria-pressed", b.dataset.i == i));
+      const [path, fn] = eps[i];
+      const ms = 18 + Math.floor(Math.random() * 20);
+      req.innerHTML = `$ curl -s localhost:8080${esc(path)} <span class="st">· 200 OK · ${ms} ms</span>`;
+      const full = JSON.stringify(fn(), null, 2);
+      const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduce) { out.innerHTML = hl(full); return; }
+      let n = 0;
+      const step = () => {
+        n = Math.min(full.length, n + 6);
+        out.innerHTML = hl(full.slice(0, n)) + (n < full.length ? '<span class="caret"></span>' : "");
+        if (n < full.length) timer = setTimeout(step, 12);
+      };
+      step();
+    };
+    panel.querySelectorAll(".ep").forEach(b => b.addEventListener("click", () => run(+b.dataset.i)));
+    run(0);
+  }
+};
+
+const tabs = [...document.querySelectorAll(".seg button")];
+const thumb = $("#thumb");
+function show(name, scroll) {
+  const idx = tabs.findIndex(t => t.dataset.tab === name);
+  if (idx < 0) return;
+  tabs.forEach((t, i) => t.setAttribute("aria-selected", i === idx));
+  thumb.style.transform = `translateX(${idx * 100}%)`;
+  panel.style.animation = "none"; void panel.offsetWidth; panel.style.animation = "";
+  renderers[name]();
+  try { localStorage.setItem("cv-tab", name); } catch (e) {}
+  if (scroll) { const y = $("#seg").getBoundingClientRect().top + scrollY - 50; if (scrollY > y) scrollTo({ top: y, behavior: "smooth" }); }
+}
+tabs.forEach(t => t.addEventListener("click", () => show(t.dataset.tab, true)));
+let start = "exp";
+try { start = localStorage.getItem("cv-tab") || "exp"; } catch (e) {}
+show(start);
+
+/* ---------- nav, clock ---------- */
+const nav = $("#nav");
+const onScroll = () => nav.classList.toggle("solid", scrollY > 60);
+addEventListener("scroll", onScroll, { passive: true }); onScroll();
+const tick = () => { const d = new Date(); $("#clock").textContent = d.toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" }); };
+tick(); setInterval(tick, 15000);
+
+/* ---------- copy + toast ---------- */
+const toast = $("#toast"); let tt;
+function say(msg) { $("#toastMsg").textContent = msg; toast.classList.add("show"); clearTimeout(tt); tt = setTimeout(() => toast.classList.remove("show"), 1800); }
+function copy(text, msg) {
+  const fallback = () => { const r = document.createRange(); const n = $(".contact-line"); r.selectNodeContents(n); const s = getSelection(); s.removeAllRanges(); s.addRange(r); say("Selecciónalo y cópialo: " + text); };
+  try { navigator.clipboard.writeText(text).then(() => say(msg), fallback); } catch (e) { fallback(); }
+}
+document.querySelectorAll("[data-copy]").forEach(b => b.addEventListener("click", () => copy(b.dataset.copy, b.dataset.msg)));
+$("#navCopy").addEventListener("click", () => copy("cvillarmel@gmail.com", "Email copiado"));
+
+/* ---------- widgets ---------- */
+const dots = $("#dots");
+dots.innerHTML = Array.from({ length: 15 }, () => "<i></i>").join("");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+if (!reduce) {
+  document.querySelectorAll("[data-count]").forEach(el => {
+    const to = +el.dataset.count, from = el.dataset.from ? +el.dataset.from : 0, t0 = performance.now(), dur = 1400;
+    const f = now => { const p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3); el.textContent = Math.round(from + (to - from) * e); if (p < 1) requestAnimationFrame(f); };
+    requestAnimationFrame(f);
+  });
+  const after = $("#barAfter"); after.style.width = "100%";
+  requestAnimationFrame(() => requestAnimationFrame(() => { after.style.width = "16.7%"; }));
+  [...dots.children].forEach((d, i) => { d.style.transitionDelay = i * 45 + "ms"; d.style.opacity = ".15"; d.style.transform = "scale(.6)"; });
+  requestAnimationFrame(() => requestAnimationFrame(() => [...dots.children].forEach(d => { d.style.opacity = ".9"; d.style.transform = "scale(1)"; })));
+}
+</script>
+
+</body></html>
